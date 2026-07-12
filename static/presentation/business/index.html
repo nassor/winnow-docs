@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Winnow — Investor Pitch</title>
+  <link rel="stylesheet" href="../reveal/reveal.css">
+  <link rel="stylesheet" href="../theme.css">
+</head>
+<body>
+  <!-- Served from presentation/business/, so the docs root is two levels up —
+       a relative link keeps the deck working under a sub-path mount too. -->
+  <a class="back-link" href="../../">← Back to docs</a>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- 1 · Title ------------------------------------------------------- -->
+      <section>
+        <p class="eyebrow">Seed round · 2026</p>
+        <h1>Winnow</h1>
+        <p class="lead">Make millions of automated decisions — <em>faster, and far cheaper</em>.</p>
+        <p class="fineprint">Nassor Frazier-Silva · nassor&lt;at&gt;gmail.com</p>
+      </section>
+
+      <!-- 2 · The everyday problem ---------------------------------------- -->
+      <section>
+        <p class="eyebrow">The problem</p>
+        <h2>Almost every instant "yes or no" online runs through a rules engine.</h2>
+        <p class="muted">Is this card payment fraud? What price do you see? Which ad? Do you qualify for the loan? Is this post allowed?</p>
+        <p>Companies make <strong>millions of these decisions every second</strong> — and a piece of software has to check each one against a long list of rules.</p>
+      </section>
+
+      <!-- 3 · The hidden cost --------------------------------------------- -->
+      <section>
+        <p class="eyebrow">Why it's a problem</p>
+        <h2>That software hasn't really changed since the 1980s.</h2>
+        <div class="analogy"><strong>Think of it like this:</strong> for every single decision, today's engines re-read the rulebook one line at a time — over and over, billions of times a day.</div>
+        <div class="cols" style="margin-top:0.3em">
+          <div class="card"><span class="tag">It's slow</span><p>Every extra millisecond is a customer waiting at checkout, or fraud slipping through.</p></div>
+          <div class="card"><span class="tag">It's expensive</span><p>It burns enormous computing power — one of the biggest lines on the cloud bill.</p></div>
+        </div>
+      </section>
+
+      <!-- 4 · What Winnow does -------------------------------------------- -->
+      <section>
+        <p class="eyebrow">The solution</p>
+        <h2>Winnow answers the same questions in a smarter way.</h2>
+        <div class="analogy"><strong>The shift:</strong> instead of reading the rulebook line by line, Winnow checks hundreds of records in a single glance, like scanning a whole spreadsheet column at once instead of cell by cell.</div>
+        <p>Same answers. <span class="green">Same rules.</span> A fraction of the time and cost.</p>
+      </section>
+
+      <!-- 5 · The payoff -------------------------------------------------- -->
+      <section>
+        <p class="eyebrow">The payoff</p>
+        <h2>Thousands of decisions in the time others make one.</h2>
+        <div class="stats">
+          <div><div class="stat green">up to 22,000×</div><span class="label">faster than a database</span></div>
+          <div><div class="stat">~2.4 µs</div><span class="label">per decision</span></div>
+          <div><div class="stat">1 server</div><span class="label">does the work of thousands</span></div>
+        </div>
+        <p class="muted small" style="margin-top:0.6em">Faster decisions win customers; cheaper decisions widen margins. Winnow does both at once.</p>
+        <p class="fineprint">Measured head-to-head against real databases — the numbers are on the next two slides.</p>
+      </section>
+
+      <!-- 5b · Proof: head-to-head speed ----------------------------------- -->
+      <section>
+        <p class="eyebrow">Proof · measured, not promised</p>
+        <h2>The same rule, the same data — against the tools you'd use today.</h2>
+        <p class="muted small" style="margin-top:-0.2em">One real-time decision: a 10-condition rule across 10 columns, over <strong>3,000,000 records</strong>, with no index — because real rule books reference too many column combinations to pre-index.</p>
+        <div class="compare">
+          <div class="cmp-row cmp-lead">
+            <div class="cmp-head"><span class="cmp-name">Winnow</span><span class="cmp-val">~2.4 µs <span class="mult">= 0.0024 ms</span></span></div>
+            <div class="cmp-track"><div class="cmp-fill" style="width:0.0044%"></div></div>
+            <p class="cmp-note">Answers from pre-built column summaries — it never reads the data row by row.</p>
+          </div>
+          <div class="cmp-row">
+            <div class="cmp-head"><span class="cmp-name">Analytics database</span><span class="cmp-val">3.3 ms <span class="mult">· ≈1,400× slower</span></span></div>
+            <div class="cmp-track"><div class="cmp-fill" style="width:6.1%"></div></div>
+            <p class="cmp-note">Must scan, plus milliseconds of fixed overhead on every query.</p>
+          </div>
+          <div class="cmp-row">
+            <div class="cmp-head"><span class="cmp-name">Traditional database</span><span class="cmp-val">~54 ms <span class="mult">· ≈22,000× slower</span></span></div>
+            <div class="cmp-track"><div class="cmp-fill" style="width:100%"></div></div>
+            <p class="cmp-note">Reads every row to answer one decision.</p>
+          </div>
+          <p class="cmp-scale-note">Bars drawn to scale — shorter is faster. Winnow's is the green sliver: too small to see at this scale, which is the point.</p>
+        </div>
+        <p class="small" style="margin-top:0.55em">And one machine sustains <strong>~12 million decisions a second</strong> <span class="green">even while the data is updated live</span> — no locks, no slowdown. Databases stall under that load.</p>
+      </section>
+
+      <!-- 5c · Proof: the cloud bill --------------------------------------- -->
+      <section>
+        <p class="eyebrow">Proof · the cloud bill</p>
+        <h2>Same answers. A fraction of the servers.</h2>
+        <p class="muted small" style="margin-top:-0.2em">To sustain <strong>100,000 decisions per second</strong>, around the clock, at typical cloud rates — what a year costs:</p>
+        <div class="compare">
+          <div class="cmp-row cmp-lead">
+            <div class="cmp-head"><span class="cmp-name">Winnow <span>· ¼ of one processor</span></span><span class="cmp-val">~$90<span class="mult">/year</span></span></div>
+            <div class="cmp-track"><div class="cmp-fill" style="width:0.0045%"></div></div>
+            <p class="cmp-note">A rounding error on the cloud bill.</p>
+          </div>
+          <div class="cmp-row">
+            <div class="cmp-head"><span class="cmp-name">Analytics database <span>· ~330 processors</span></span><span class="cmp-val">~$124K<span class="mult">/year</span></span></div>
+            <div class="cmp-track"><div class="cmp-fill" style="width:6.2%"></div></div>
+            <p class="cmp-note">+$124K every year for the same work.</p>
+          </div>
+          <div class="cmp-row">
+            <div class="cmp-head"><span class="cmp-name">Traditional database <span>· ~5,400 processors</span></span><span class="cmp-val">~$2.0M<span class="mult">/year</span></span></div>
+            <div class="cmp-track"><div class="cmp-fill" style="width:100%"></div></div>
+            <p class="cmp-note">+$2.0M every year for the same work.</p>
+          </div>
+          <p class="cmp-scale-note">Bars drawn to scale — the year's bill for the same 100,000 decisions every second.</p>
+        </div>
+        <p class="muted small" style="margin-top:0.5em">At <strong>a million</strong> decisions a second, multiply by ten — the database path runs to <span class="accent">$20M</span> a year.</p>
+        <p class="fineprint">Measured head-to-head at 3M records on a 16-core (32-thread) workstation, July 2026.</p>
+      </section>
+
+      <!-- 6 · Where it matters most (market breadth) ---------------------- -->
+      <section>
+        <p class="eyebrow">Market · where it matters most</p>
+        <h2>The high-volume, real-time decisions.</h2>
+        <div class="usecases">
+          <div class="usecase"><div class="uc-name">Fraud &amp; payments<span>banks · fintech</span></div><div class="uc-impact">Every transaction screened against thousands of rules in real time. Volume is staggering, and a slow check means lost sales or missed fraud.</div></div>
+          <div class="usecase"><div class="uc-name">Ad targeting<span>adtech</span></div><div class="uc-impact">Each ad opportunity matched against millions of campaign rules in milliseconds — the textbook case Winnow already demonstrates at 2M rules.</div></div>
+          <div class="usecase"><div class="uc-name">Dynamic pricing<span>retail · travel</span></div><div class="uc-impact">Every page view priced against many rules and segments, constantly, at scale.</div></div>
+          <div class="usecase"><div class="uc-name">Eligibility<span>lending · insurance</span></div><div class="uc-impact">Instant underwriting decisions over rich applicant data — speed is the product.</div></div>
+        </div>
+      </section>
+
+      <!-- 7 · Biggest impact (where Winnow uniquely wins) ----------------- -->
+      <section>
+        <p class="eyebrow">Market · the sweet spot</p>
+        <h2>Winnow wins biggest where three things meet.</h2>
+        <div class="cols-3">
+          <div class="card win"><span class="tag">Huge volume</span><p>Millions to billions of decisions a day — where a small saving per decision is an enormous saving overall.</p></div>
+          <div class="card win"><span class="tag">Real-time</span><p>Answers needed in milliseconds, in the live path of a payment, a page, an ad.</p></div>
+          <div class="card win"><span class="tag">Many rules</span><p>Thousands to millions of rules checked at once — exactly what old engines handle worst.</p></div>
+        </div>
+        <p style="margin-top:0.5em">That's <strong>fraud, adtech, and pricing</strong> first — the workloads with the most decisions, the tightest time limits, and the biggest cloud bills.</p>
+      </section>
+
+      <!-- 7b · The AI angle ----------------------------------------------- -->
+      <section>
+        <p class="eyebrow">Why now · AI</p>
+        <h2>AI doesn't replace the rules. It multiplies them.</h2>
+        <div class="analogy"><strong>How real AI systems work:</strong> the model estimates ("this looks 87% like fraud") — the rules decide ("block above 80, unless it's a long-standing customer"). Stripe, HSBC, Amazon, and Visa all ship exactly this split.</div>
+        <div class="cols" style="margin-top:0.3em">
+          <div class="card"><span class="tag">Every score, one more decision</span><p>Each model score must pass business policy — thresholds, exceptions, legal bounds — on every event, instantly.</p></div>
+          <div class="card"><span class="tag">AI agents act at machine speed</span><p>One request fans out into dozens of automated actions, and every action needs a permission check on the hot path.</p></div>
+        </div>
+        <p class="muted small" style="margin-top:0.5em">The rules layer is where a business <em>steers</em> its AI — and it has to run in microseconds. That layer is Winnow.</p>
+      </section>
+
+      <!-- 8 · Market size ------------------------------------------------- -->
+      <section>
+        <p class="eyebrow">Market · size</p>
+        <h2>Multi-billion-dollar software markets, all running this workload.</h2>
+        <div class="usecases" style="margin-top:0.2em">
+          <div class="usecase"><div class="uc-name">$32B<span>→ $66B by 2030</span></div><div class="uc-impact">Fraud detection &amp; prevention software — growing ~15.5% a year.</div></div>
+          <div class="usecase"><div class="uc-name">$28B<span>→ $276B by 2033</span></div><div class="uc-impact">Real-time-bidding infrastructure — ~33% a year — carrying well over half a trillion dollars of programmatic ad spend.</div></div>
+          <div class="usecase"><div class="uc-name">$1.8B<span>+12% a year</span></div><div class="uc-impact">Business-rules / decision-management software (BRMS) — the core decisioning tier; broader decision-intelligence platforms run several times larger.</div></div>
+        </div>
+        <p class="small" style="margin-top:0.5em"><strong>Bottom-up:</strong> every company making high-volume decisions already pays for this tier — in software licences <em>and</em> in the cloud compute to run it. Winnow sells into both budgets.</p>
+        <p class="fineprint">Sources: <a href="https://www.marketsandmarkets.com/PressReleases/fraud-detection-prevention.asp">MarketsandMarkets</a> (fraud detection &amp; prevention, 2025→2030; BRMS, 2025), <a href="https://www.marketdataforecast.com/market-reports/real-time-bidding-market">Market Data Forecast</a> (real-time bidding, 2025→2033), <a href="https://www.statista.com/statistics/275806/programmatic-spending-worldwide/">Statista</a> (programmatic ad spend, 2024). Third-party analyst estimates; sizes vary by definition.</p>
+      </section>
+
+      <!-- 9 · Business model ---------------------------------------------- 
+      <section>
+        <p class="eyebrow">Business model</p>
+        <h2>Free to adopt, paid at scale.</h2>
+        <div class="cols">
+          <div class="card"><span class="tag">Land</span><p>A free, open version gets engineers using Winnow and proving it on real workloads — no sales call required.</p></div>
+          <div class="card"><span class="tag">Expand</span><p>Bigger customers pay for the managed cloud and a commercial licence — priced by usage, with support and guarantees.</p></div>
+        </div>
+        <p class="muted small" style="margin-top:0.5em">Once a company's decisions run on Winnow, it sits in the critical path — durable, recurring revenue.</p>
+      </section>
+      -->
+
+      <!-- 10 · Traction --------------------------------------------------- -->
+      <section>
+        <p class="eyebrow">Traction</p>
+        <h2>The engine works today.</h2>
+        <div class="stats">
+          <div><div class="stat">2M</div><span class="label">rules matched in one demo</span></div>
+          <div><div class="stat">13</div><span class="label">use-case areas mapped out</span></div>
+          <div><div class="stat">1</div><span class="label">design partners in pipeline</span></div>
+        </div>
+        <p class="muted small" style="margin-top:0.6em">A real, working engine with native libraries for Rust, Python, Java, Go, Node.js, C#, and C — teams adopt Winnow from the language they already use, no rewrite required.</p>
+      </section>
+
+      <!-- 11 · Why now ---------------------------------------------------- -->
+      <section>
+        <p class="eyebrow">Why now</p>
+        <h2>The timing is right.</h2>
+        <ul>
+          <li><strong>Decision volumes have exploded</strong> — more transactions, ads, and users than ever, all needing instant answers.</li>
+          <li><strong>Cloud costs are under the microscope</strong> — every team is hunting for efficiency, and decisioning is a fat target.</li>
+          <li><strong>The hardware finally suits the approach</strong> — today's chips are built for exactly the way Winnow works.</li>
+        </ul>
+      </section>
+
+      <!-- 12 · Team ------------------------------------------------------- -->
+      <section>
+        <p class="eyebrow">Team</p>
+        <h2>Why me.</h2>
+        <ul>
+          <li><strong>Nassor Frazier-Silva</strong> — I previously engineered a similar solution at Unity Technologies, generating tens of millions of dollars in annual cost savings. Recognizing a widespread industry need, I built Winnow from the ground up with an optimized architecture to help other organizations solve comparable challenges.</li>
+        </ul>
+      </section>
+
+      <!-- 13 · The ask ---------------------------------------------------- -->
+      <section>
+        <p class="eyebrow">The ask</p>
+        <h2>Raising <span class="accent">US$4M</span> seed.</h2>
+        <p class="small muted">To turn a working engine into a company. Roughly:</p>
+        <div class="bars">
+          <div class="bar"><div class="bar-label"><span>Engineering — cloud product &amp; benchmarks</span><span class="accent">~50%</span></div><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div></div>
+          <div class="bar"><div class="bar-label"><span>Go-to-market — land design partners</span><span class="accent">~30%</span></div><div class="bar-track"><div class="bar-fill" style="width:30%"></div></div></div>
+          <div class="bar"><div class="bar-label"><span>Runway &amp; operations</span><span class="accent">~20%</span></div><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div></div>
+        </div>
+        <p class="fineprint" style="margin-top:2em">Nassor Frazier-Silva · nassor&lt;at&gt;gmail.com</p>
+
+      </section>
+      
+    </div>
+  </div>
+
+  <script src="../reveal/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true, slideNumber: 'c/t', controls: true, progress: true,
+      center: true, transition: 'slide', width: 1100, height: 720, margin: 0.07
+    });
+  </script>
+</body>
+</html>

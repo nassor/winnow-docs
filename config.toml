@@ -1,0 +1,46 @@
+# Zola configuration for the Winnow business documentation site.
+# Docs: https://www.getzola.org/documentation/getting-started/configuration/
+#
+# `base_url = "/"` keeps generated links root-relative so local preview works
+# anywhere (`zola serve` overrides it with the dev address automatically). The
+# GitHub Pages pipeline (.github/workflows/publish-business-docs.yml) does NOT
+# use this value: it passes the real Pages URL via `zola build --base-url`, so
+# the published site works under the project sub-path.
+base_url = "/"
+
+title = "Winnow"
+description = "Make millions of automated decisions — faster, and far cheaper."
+
+# No `theme` key is set, so the site is built entirely from this project's own
+# `templates/` and `static/` directories — there is no external theme submodule.
+
+default_language = "en"
+
+# We ship plain CSS in `static/`, so no Sass compilation is needed.
+compile_sass = false
+
+# Documentation is browsed via the sidebar, so the built-in search index is not
+# needed and only bloats the output. (Atom/RSS feeds are off by default.)
+build_search_index = false
+
+# Fail the build on a dead internal link (`@/...`) or missing anchor — this is
+# what lets `zola check` catch a broken cross-reference before it ships.
+[link_checker]
+internal_level = "error"
+
+[markdown]
+# Render a clickable anchor beside every heading so sections are linkable.
+insert_anchor_links = "right"
+
+# Syntax highlighting is left at its default so this config stays portable across
+# Zola versions (the highlighting options have changed shape between releases).
+# This version expects a `[markdown.highlighting]` TABLE. To enable coloured code
+# blocks, add a section like the following — if a field name is rejected, the
+# build error lists the accepted ones for your version:
+#
+#   [markdown.highlighting]
+#   enabled = true
+#   theme   = "base16-ocean-dark"
+
+[extra]
+repository = "https://github.com/"  # set to the project's repository URL

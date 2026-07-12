@@ -1,0 +1,6 @@
+# Zola build output (the Pages pipeline rebuilds it from source).
+public
+
+.DS_Store
+.remember
+docs/

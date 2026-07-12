@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ section.title }} · {{ config.title }}{% endblock title %}
+{% block description %}{{ section.description | default(value=config.description) }}{% endblock description %}
+{% block content %}
+<h1{% if section.extra.theme %} class="theme-{{ section.extra.theme }} themed-title"{% endif %}>{{ section.title }}</h1>
+{{ section.content | safe }}
+{% if section.extra.grouped %}
+  {# Color-coded card lists, one per theme, in the order declared in the section
+     front matter. Each page selects its group via `extra.theme`. #}
+  {% for group in section.extra.groups %}
+  {% set pages = section.pages | filter(attribute="extra.theme", value=group.slug) %}
+  {% if pages %}
+  <h2 class="theme-heading theme-{{ group.slug }}">{{ group.label }}</h2>
+  <ul class="card-list card-list--{{ group.slug }}">
+    {% for page in pages %}
+    <li>
+      <a href="{{ page.permalink }}">
+        <strong>{{ page.title }}</strong>
+        {% if page.description %}<span>{{ page.description }}</span>{% endif %}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endfor %}
+{% elif section.pages %}
+<ul class="card-list{% if section.extra.theme %} card-list--{{ section.extra.theme }}{% endif %}">
+  {% for page in section.pages %}
+  <li>
+    <a href="{{ page.permalink }}">
+      <strong>{{ page.title }}</strong>
+      {% if page.description %}<span>{{ page.description }}</span>{% endif %}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock content %}

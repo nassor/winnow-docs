@@ -1,0 +1,18 @@
+{# Sidebar navigation helpers.
+
+   `link`  — a leaf documentation page.
+   `group` — a section landing page (rendered as a heading-style link).
+
+   Both resolve the target with `get_url(path="@/...")`, which fails the build if
+   the path does not exist, and mark themselves `active` when they point at the
+   page currently being rendered (`current_url`). #}
+
+{% macro link(path, label) %}
+{%- set url = get_url(path=path) -%}
+<a class="nav-link{% if current_url is defined and current_url == url %} active{% endif %}" href="{{ url }}">{{ label }}</a>
+{%- endmacro link %}
+
+{% macro group(path, label, class="") %}
+{%- set url = get_url(path=path) -%}
+<a class="nav-group{% if class %} {{ class }}{% endif %}{% if current_url is defined and current_url == url %} active{% endif %}" href="{{ url }}">{{ label }}</a>
+{%- endmacro group %}

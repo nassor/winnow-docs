@@ -1,0 +1,584 @@
+/* Winnow documentation — self-contained stylesheet (no build step).
+   Layout: fixed dark sidebar + scrollable content column. On narrow screens the
+   sidebar collapses behind a checkbox-driven menu button (no JavaScript). */
+
+:root {
+  --bg: #ffffff;
+  --fg: #1f2329;
+  --muted: #5b6470;
+  --border: #e6e8eb;
+  --accent: #2f6feb;
+  --accent-soft: #eaf1ff;
+  --sidebar-bg: #11161d;
+  --sidebar-fg: #c7d0db;
+  --sidebar-muted: #7d8794;
+  --sidebar-active: #2f6feb;
+  --code-bg: #f5f6f8;
+  --sidebar-width: 17rem;
+  --content-width: 52rem;
+  --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-fg);
+  padding: 1.5rem 1rem 2rem;
+}
+
+.content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  min-width: 0;
+  padding: 2.5rem 2.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.prose { width: 100%; max-width: var(--content-width); margin: 0 auto; flex: 1; }
+
+/* ── Sidebar brand + nav ────────────────────────────────────────────────── */
+
+.brand { display: block; margin-bottom: 1.5rem; }
+.brand:hover { text-decoration: none; }
+.brand-name {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.brand-sub { display: block; font-size: 0.78rem; color: var(--sidebar-muted); }
+
+.nav { display: flex; flex-direction: column; gap: 0.1rem; }
+
+.nav-link {
+  display: block;
+  padding: 0.32rem 0.6rem;
+  border-radius: 6px;
+  color: var(--sidebar-fg);
+  font-size: 0.92rem;
+}
+.nav-link:hover { background: rgba(255, 255, 255, 0.06); text-decoration: none; }
+.nav-link.active {
+  background: var(--sidebar-active);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* "Presentation" opens the full-screen pitch deck; the arrow hints it leaves the docs. */
+.nav-ext { color: var(--sidebar-muted); font-size: 0.85em; }
+.nav-pitch:hover .nav-ext { color: inherit; }
+
+.nav-group {
+  display: block;
+  margin: 1rem 0 0.15rem;
+  padding: 0.2rem 0.6rem;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.nav-group:hover { text-decoration: none; color: #fff; }
+.nav-group.active { color: #fff; }
+.nav-group.active::before { content: "▸ "; color: var(--accent); }
+
+.nav-section {
+  display: block;
+  margin: 1.1rem 0 0.3rem;
+  padding: 0 0.6rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sidebar-muted);
+}
+
+/* Separates the themed use-case links from the cross-cutting references below. */
+.nav-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin: 1.1rem 0.6rem;
+}
+
+/* ── Top bar (mobile only) ──────────────────────────────────────────────── */
+
+.topbar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: var(--sidebar-bg);
+  color: #fff;
+}
+.topbar-brand { color: #fff; font-weight: 700; }
+.topbar-brand:hover { text-decoration: none; }
+.nav-toggle-label {
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  user-select: none;
+}
+
+/* ── Typography ─────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4 { line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+h1 { font-size: 2rem; margin: 0 0 1rem; }
+h2 { font-size: 1.45rem; margin: 2.4rem 0 0.8rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--border); }
+h3 { font-size: 1.15rem; margin: 1.8rem 0 0.6rem; }
+h4 { font-size: 1rem; margin: 1.4rem 0 0.5rem; }
+p { margin: 0 0 1rem; }
+ul, ol { margin: 0 0 1rem; padding-left: 1.4rem; }
+li { margin: 0.25rem 0; }
+
+/* Heading anchor links injected by Zola (insert_anchor_links = "right"). */
+.zola-anchor { margin-left: 0.4rem; color: var(--muted); opacity: 0; text-decoration: none; }
+h1:hover .zola-anchor, h2:hover .zola-anchor, h3:hover .zola-anchor, h4:hover .zola-anchor { opacity: 1; }
+
+blockquote {
+  margin: 1rem 0;
+  padding: 0.4rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  color: #33415c;
+  border-radius: 0 6px 6px 0;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+/* ── Code ───────────────────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--code-bg);
+  padding: 0.12em 0.36em;
+  border-radius: 4px;
+}
+pre {
+  margin: 0 0 1.2rem;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+/* Zola emits highlighted blocks with inline colours; keep its background and
+   strip the inline-`code` chrome inside a highlighted <pre>. */
+pre code { background: none; padding: 0; font-size: 1em; }
+
+/* ── Tables ─────────────────────────────────────────────────────────────── */
+
+table { width: 100%; border-collapse: collapse; margin: 0 0 1.4rem; font-size: 0.92rem; }
+th, td { border: 1px solid var(--border); padding: 0.5rem 0.7rem; text-align: left; vertical-align: top; }
+th { background: var(--code-bg); font-weight: 600; }
+tr:nth-child(even) td { background: #fafbfc; }
+
+/* ── Section landing cards ──────────────────────────────────────────────── */
+
+.card-list { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: 0.75rem; }
+.card-list li { margin: 0; }
+.card-list a {
+  display: block;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: inherit;
+}
+.card-list a:hover { border-color: var(--accent); text-decoration: none; box-shadow: 0 1px 6px rgba(47, 111, 235, 0.12); }
+.card-list strong { display: block; color: var(--accent); }
+.card-list span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.15rem; }
+
+/* ── Themed use-case groups ─────────────────────────────────────────────────
+   The "Twelve ways to put it to work" cards are grouped by theme (same buckets
+   as the sidebar). Each theme gets its own accent so the three families read at
+   a glance: risk (red), growth (violet), operations (teal). */
+.theme-heading {
+  margin: 2rem 0 0.4rem;
+  padding-bottom: 0.3rem;
+  font-size: 1.15rem;
+  border-bottom: 2px solid var(--theme, var(--accent));
+}
+.theme-heading::before {
+  content: "";
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.5rem;
+  border-radius: 2px;
+  background: var(--theme, var(--accent));
+  vertical-align: middle;
+}
+.theme-risk   { --theme: #b45309; --theme-soft: #fdf3e7; }
+.theme-growth { --theme: #6b4fd8; --theme-soft: #efeafe; }
+.theme-ops    { --theme: #0f8a8a; --theme-soft: #e2f5f5; }
+
+/* Use-case page title inherits its category's color. */
+h1.themed-title { color: var(--theme); }
+
+.card-list--risk   { --theme: #b45309; --theme-soft: #fdf3e7; }
+.card-list--growth { --theme: #6b4fd8; --theme-soft: #efeafe; }
+.card-list--ops    { --theme: #0f8a8a; --theme-soft: #e2f5f5; }
+
+/* Inline theme name in running text — matches the card/heading accents. */
+.theme-label { color: var(--theme, var(--accent)); font-weight: 700; }
+
+/* Sidebar theme labels sit on a dark background, so use brighter shades. */
+.nav-section.theme-risk   { color: #f0a94b; }
+.nav-section.theme-growth { color: #a78bfa; }
+.nav-section.theme-ops    { color: #4dd4c4; }
+
+.card-list[class*="card-list--"] a:hover {
+  border-color: var(--theme);
+  border-left-color: var(--theme);
+  background: var(--theme-soft);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+.card-list[class*="card-list--"] strong { color: var(--theme); }
+
+/* ── Home-page audience entry cards ─────────────────────────────────────── */
+
+.path-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.8rem 0 2.6rem;
+}
+.path-card {
+  display: block;
+  padding: 1.2rem 1.3rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.path-card:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(47, 111, 235, 0.12);
+  transform: translateY(-1px);
+}
+.path-eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.path-card strong { display: block; color: var(--accent); font-size: 1.1rem; margin-bottom: 0.35rem; }
+.path-desc { display: block; color: var(--muted); font-size: 0.92rem; }
+
+/* ── On-this-page TOC ───────────────────────────────────────────────────── */
+
+.toc {
+  margin: 0 0 2rem;
+  padding: 0.6rem 1rem;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+.toc summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+.toc ul { margin: 0.5rem 0 0; padding-left: 1.2rem; }
+.toc ul ul { margin: 0.2rem 0; }
+.toc li { margin: 0.15rem 0; }
+
+/* ── Callout boxes ──────────────────────────────────────────────────────── */
+
+.callout {
+  margin: 1.6rem 0;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--code-bg);
+}
+.callout .callout-title { margin: 0 0 0.4rem; font-weight: 700; }
+.callout p { margin: 0.5rem 0 0; }
+.callout p:first-child { margin-top: 0; }
+
+/* Performance / savings callout — green, to signal money saved, and clearly
+   distinct from the blue informational blockquotes. */
+.callout-perf { border-color: #b9e6c9; background: #f0fbf4; }
+.callout-perf .callout-title { color: #157f3c; }
+
+/* AI-in-the-loop callout — violet, marking where machine-learning models and
+   Winnow's rules work together; distinct from the green savings callout. */
+.callout-ai { border-color: #ddd0f5; background: #f8f5fe; }
+.callout-ai .callout-title { color: #6b3fd4; }
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+
+.site-footer {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 3rem auto 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 50rem) {
+  .topbar { display: flex; }
+  .sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    z-index: 30;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+  }
+  .nav-toggle:checked ~ .layout .sidebar { transform: translateX(0); }
+  .content { margin-left: 0; padding: 1.5rem 1.2rem 3rem; }
+  h1 { font-size: 1.65rem; }
+  .path-cards { grid-template-columns: 1fr; }
+}
+
+/* ══ Winnow visual kit (.wv-*) ═══════════════════════════════════════════════
+   Bespoke, dependency-free diagrams & charts embedded as inline HTML/SVG inside
+   the Markdown pages. One shared visual language across Overview + the two Deep
+   Dives so the docs read as a single system. No JavaScript.
+
+   Role colors (consistent everywhere):
+     Winnow / rules / savings / "good" → green   (matches .callout-perf)
+     AI model                          → violet  (matches .callout-ai)
+     blocked / veto / stop             → amber    (matches theme-risk)
+     neutral context (event, data)     → slate
+     structure / arrows / output       → accent blue                          */
+:root {
+  --wv-green:  #157f3c;
+  --wv-green-soft: #f0fbf4;
+  --wv-violet: #6b3fd4;
+  --wv-violet-soft: #f8f5fe;
+  --wv-amber:  #b45309;
+  --wv-amber-soft: #fdf3e7;
+  --wv-slate:  #64748b;
+  --wv-slate-soft: #f1f5f9;
+  --wv-grid:   #e6e8eb;
+}
+
+/* ── Figure wrapper ─────────────────────────────────────────────────────── */
+.wv-figure {
+  margin: 1.8rem 0;
+  padding: 1.25rem 1.35rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background:
+    radial-gradient(120% 100% at 0% 0%, #fcfdff 0%, #fbfcfe 45%, #ffffff 100%);
+}
+.wv-figure > figcaption,
+.wv-figure > .wv-cap {
+  margin-top: 0.9rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.wv-cap b { color: var(--fg); font-weight: 600; }
+.wv-cap .wv-inw { color: var(--wv-green); font-weight: 600; }
+.wv-title {
+  /* flow-root contains the floated .wv-dir: when the title wraps on narrow
+     screens the float would otherwise hang below the paragraph and force the
+     .wv-bars flex container (a BFC) to shrink beside it, collapsing every
+     bar track to zero width. */
+  display: flow-root;
+  margin: 0 0 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.wv-title .wv-dir { float: right; font-weight: 600; text-transform: none; letter-spacing: 0; }
+
+/* ── Log-scale bar chart ────────────────────────────────────────────────── */
+.wv-bars { display: flex; flex-direction: column; gap: 0.55rem; }
+.wv-bar, .wv-axis {
+  display: grid;
+  grid-template-columns: 9.5rem 1fr 7.5rem;
+  gap: 0.7rem;
+  align-items: center;
+}
+.wv-bar-name { font-size: 0.9rem; font-weight: 600; line-height: 1.2; }
+.wv-bar-name small { display: block; color: var(--muted); font-weight: 400; font-size: 0.78rem; }
+
+.wv-bar-track {
+  position: relative;
+  height: 1.5rem;
+  border-radius: 5px;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--wv-grid) 0, var(--wv-grid) 1px,
+      transparent 1px, transparent calc(100% / var(--decades, 5)));
+  box-shadow: inset 0 0 0 1px #eef0f3;
+}
+.wv-bar-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: var(--w, 0%);
+  min-width: 3px;
+  border-radius: 5px;
+  background: var(--wv-slate);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+.wv-bar.is-winnow .wv-bar-fill {
+  background: linear-gradient(90deg, #1a9a49, var(--wv-green));
+}
+.wv-bar-val { font-size: 0.9rem; font-weight: 700; text-align: right; line-height: 1.2; }
+.wv-bar-val small { display: block; font-weight: 500; font-size: 0.76rem; color: var(--muted); }
+.wv-bar.is-winnow .wv-bar-val { color: var(--wv-green); }
+.wv-bar.is-winnow .wv-bar-val small { color: var(--wv-green); }
+.wv-pill {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.02rem 0.4rem;
+  border-radius: 999px;
+  background: var(--wv-green);
+  color: #fff;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  vertical-align: 0.08em;
+}
+/* Decade axis */
+.wv-axis { margin-top: 0.15rem; }
+.wv-axis .wv-ticks {
+  display: flex; justify-content: space-between;
+  font-size: 0.7rem; color: var(--muted);
+}
+.wv-axis .wv-ticks span { transform: translateX(-50%); }
+.wv-axis .wv-ticks span:first-child { transform: none; }
+.wv-axis .wv-ticks span:last-child { transform: translateX(-100%); }
+
+/* ── Flow diagram (nodes + chevron arrows) ──────────────────────────────── */
+.wv-flow {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+.wv-node {
+  flex: 1 1 0;
+  min-width: 8.5rem;
+  max-width: 16rem;
+  padding: 0.7rem 0.85rem 0.8rem;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--wv-slate);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(16, 22, 29, 0.06);
+  text-align: center;
+  display: flex; flex-direction: column; gap: 0.2rem; justify-content: center;
+}
+.wv-node .wv-eyebrow {
+  font-size: 0.64rem; font-weight: 700; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--wv-slate);
+}
+.wv-node b { font-size: 0.92rem; line-height: 1.25; }
+.wv-node .wv-ex { font-size: 0.76rem; color: var(--muted); line-height: 1.35; }
+.wv-node--model { border-top-color: var(--wv-violet); background: var(--wv-violet-soft); }
+.wv-node--model .wv-eyebrow { color: var(--wv-violet); }
+.wv-node--rules { border-top-color: var(--wv-green); background: var(--wv-green-soft); }
+.wv-node--rules .wv-eyebrow { color: var(--wv-green); }
+.wv-node--stop  { border-top-color: var(--wv-amber); background: var(--wv-amber-soft); }
+.wv-node--stop  .wv-eyebrow { color: var(--wv-amber); }
+.wv-node--data  { border-top-color: var(--wv-slate); background: var(--wv-slate-soft); }
+.wv-node--out   { border-top-color: var(--accent); background: var(--accent-soft); }
+.wv-node--out   .wv-eyebrow { color: var(--accent); }
+
+/* Chevron arrow between nodes */
+.wv-arrow {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 1.5rem; height: 1.5rem;
+  position: relative;
+}
+.wv-arrow::before {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: 0.55rem; height: 0.55rem;
+  transform: translate(-65%, -50%) rotate(45deg);
+  border-top: 2.5px solid var(--wv-slate);
+  border-right: 2.5px solid var(--wv-slate);
+}
+/* A stacked "fan-out" node — many checks from one event */
+.wv-node--stack { position: relative; }
+.wv-node--stack::before, .wv-node--stack::after {
+  content: ""; position: absolute; inset: 0;
+  border: 1px solid var(--border); border-top: 3px solid; border-top-color: inherit;
+  border-radius: 10px; background: #fff; z-index: -1;
+}
+.wv-node--stack::before { transform: translate(5px, 5px); }
+.wv-node--stack::after  { transform: translate(10px, 10px); opacity: 0.55; }
+
+/* ── Two-panel split (contrast) ─────────────────────────────────────────── */
+.wv-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.wv-panel {
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+.wv-panel--old { border-top: 3px solid var(--wv-slate); }
+.wv-panel--new { border-top: 3px solid var(--wv-green); background: var(--wv-green-soft); }
+.wv-panel h4 { margin: 0 0 0.15rem; font-size: 0.95rem; }
+.wv-panel .wv-sub { margin: 0 0 0.7rem; font-size: 0.8rem; color: var(--muted); }
+.wv-panel--new h4 { color: var(--wv-green); }
+.wv-svg { display: block; width: 100%; height: auto; }
+
+/* ── Responsive: stack flows and splits vertically ──────────────────────── */
+@media (max-width: 44rem) {
+  .wv-flow { flex-direction: column; align-items: stretch; }
+  .wv-node { max-width: none; }
+  .wv-arrow { width: 100%; height: 1.1rem; }
+  .wv-arrow::before { transform: translate(-50%, -60%) rotate(135deg); }
+  .wv-split { grid-template-columns: 1fr; }
+  .wv-bar, .wv-axis { grid-template-columns: 7rem 1fr 5.5rem; gap: 0.5rem; }
+  .wv-bar-name { font-size: 0.82rem; }
+  .wv-bar-val { font-size: 0.82rem; }
+  /* The tick row's min-content (all labels side by side) is wider than the
+     narrow track, which would stretch the 1fr column and misalign the labels
+     from the gridlines. Pin the column to the track width and keep only the
+     endpoint labels — the caption explains the per-gridline scale. */
+  .wv-axis { grid-template-columns: 7rem minmax(0, 1fr) 5.5rem; }
+  .wv-axis .wv-ticks span:not(:first-child):not(:last-child) { display: none; }
+  .wv-axis .wv-ticks span:last-child { transform: none; }
+}

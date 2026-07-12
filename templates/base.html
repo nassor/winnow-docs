@@ -1,0 +1,71 @@
+{% import "macros.html" as nav %}
+<!DOCTYPE html>
+<html lang="{{ lang | default(value="en") }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+  <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
+  <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+</head>
+<body>
+  {# Checkbox + label drive the mobile sidebar with no JavaScript. #}
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+  <header class="topbar">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation">≡</label>
+    <a class="topbar-brand" href="{{ get_url(path='@/_index.md') }}">Winnow</a>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="brand" href="{{ get_url(path='@/_index.md') }}">
+        <span class="brand-name">Winnow</span>
+        <span class="brand-sub">vectorized inference engine</span>
+      </a>
+
+      <nav class="nav">
+        {# Overview is the merged home page (@/_index.md): the plain-language
+           intro plus the twelve use-case cards. The two "Deep Dive" companion
+           pages sit right beneath it; the themed links below jump straight to
+           each use-case page. #}
+        {{ nav::link(path="@/_index.md", label="Overview") }}
+        {{ nav::link(path="@/rule-engines/cost-savings.md", label="Deep Dive: Cost Savings") }}
+        {{ nav::link(path="@/rule-engines/ai-and-rules-engines.md", label="Deep Dive: AI + Rules Engines") }}
+        <span class="nav-section theme-risk">Risk &amp; compliance</span>
+        {{ nav::link(path="@/rule-engines/fraud-screening.md", label="Fraud & transaction screening") }}
+        {{ nav::link(path="@/rule-engines/compliance-screening.md", label="Compliance & AML screening") }}
+        {{ nav::link(path="@/rule-engines/access-control.md", label="Access control & entitlements") }}
+        {{ nav::link(path="@/rule-engines/real-time-alerting.md", label="Real-time alerting") }}
+        <span class="nav-section theme-growth">Growth &amp; personalization</span>
+        {{ nav::link(path="@/rule-engines/ad-targeting.md", label="Ad & content targeting") }}
+        {{ nav::link(path="@/rule-engines/dynamic-pricing.md", label="Dynamic pricing & offers") }}
+        {{ nav::link(path="@/rule-engines/segmentation.md", label="Segmentation & lead scoring") }}
+        {{ nav::link(path="@/rule-engines/experimentation.md", label="Feature flags & experiments") }}
+        <span class="nav-section theme-ops">Operations &amp; data</span>
+        {{ nav::link(path="@/rule-engines/eligibility.md", label="Eligibility & underwriting") }}
+        {{ nav::link(path="@/rule-engines/content-moderation.md", label="Content moderation") }}
+        {{ nav::link(path="@/rule-engines/clinical-cohorts.md", label="Clinical cohorts & trials") }}
+        {{ nav::link(path="@/rule-engines/predictive-maintenance.md", label="IoT & predictive maintenance") }}
+        {# Pitch deck stays at the bottom. It is a vendored reveal.js page in
+           static/, so it is linked with `get_url` rather than `nav::link`
+           (which only resolves `@/` content paths). `get_url` prepends the
+           site's `base_url`, so the link also works when the site is served
+           under a sub-path (e.g. a GitHub Pages project site). It opens
+           full-screen with its own "Back to docs" link. #}
+        <hr class="nav-divider">
+        <a class="nav-link nav-pitch" href="{{ get_url(path='presentation/business/index.html') }}">Presentation <span class="nav-ext" aria-hidden="true">↗</span></a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <article class="prose">
+        {% block content %}{% endblock content %}
+      </article>
+      <footer class="site-footer">
+        <span>Winnow documentation</span>
+        <span>Built with <a href="https://www.getzola.org/">Zola</a></span>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{# Landing page (content/_index.md) — now also the merged "Rule engines" overview.
+   The home markdown supplies its own heading and the "Twelve ways" intro; the
+   twelve use-case cards live in the `rule-engines` section (render = false), so we
+   pull them here and render them grouped and color-coded by theme, exactly as
+   `section.html` does for a normal grouped section. #}
+{% block content %}
+{{ section.content | safe }}
+{% set re = get_section(path="rule-engines/_index.md") %}
+{% for group in re.extra.groups %}
+{% set pages = re.pages | filter(attribute="extra.theme", value=group.slug) %}
+{% if pages %}
+<h2 class="theme-heading theme-{{ group.slug }}">{{ group.label }}</h2>
+<ul class="card-list card-list--{{ group.slug }}">
+  {% for page in pages %}
+  <li>
+    <a href="{{ page.permalink }}">
+      <strong>{{ page.title }}</strong>
+      {% if page.description %}<span>{{ page.description }}</span>{% endif %}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endfor %}
+{% endblock content %}

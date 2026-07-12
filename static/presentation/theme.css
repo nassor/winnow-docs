@@ -1,0 +1,161 @@
+/* Shared Winnow-branded reveal.js theme for both decks (technical + business).
+   reveal.css ships layout only; colours, type, and slide components live here so
+   the decks match the docs palette (dark #11161d, accent #2f6feb). Linked after
+   reveal/reveal.css from each deck so it overrides reveal's bare defaults. */
+
+:root {
+  --bg: #0d1219;
+  --bg-2: #151c26;
+  --fg: #c7d0db;
+  --fg-strong: #ffffff;
+  --muted: #7d8794;
+  --accent: #2f6feb;
+  --accent-soft: rgba(47, 111, 235, 0.16);
+  --green: #2ec27e;
+  --border: #283443;
+  --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+html, body, .reveal-viewport { background: var(--bg); }
+
+.reveal { font-family: var(--sans); font-size: 36px; color: var(--fg); font-weight: 400; }
+.reveal .slides { text-align: left; }
+.reveal .slides section { padding: 0 14px; }
+
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--fg-strong);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin: 0 0 0.5em;
+  text-transform: none;
+}
+.reveal h1 { font-size: 2.15em; }
+.reveal h2 { font-size: 1.45em; }
+.reveal h3 { font-size: 1.05em; }
+.reveal p  { line-height: 1.4; margin: 0 0 0.6em; }
+.reveal strong { color: var(--fg-strong); font-weight: 700; }
+.reveal em { color: var(--accent); font-style: normal; }
+.reveal a { color: var(--accent); text-decoration: none; }
+.reveal ul { display: block; margin: 0 0 0.4em 1em; }
+.reveal li { margin: 0.3em 0; }
+.reveal .slide-number { background: transparent; color: var(--muted); font-size: 16px; }
+.reveal .progress { color: var(--accent); height: 4px; }
+.reveal .controls { color: var(--accent); }
+
+/* ── Reusable slide components ─────────────────────────────────────────── */
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.5em;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 0.7em;
+}
+.lead { font-size: 1.16em; color: var(--fg); max-width: 24ch; }
+.muted { color: var(--muted); }
+.accent { color: var(--accent); }
+.green { color: var(--green); }
+.small { font-size: 0.66em; }
+.fineprint { font-size: 0.42em; color: var(--muted); line-height: 1.4; margin-top: 1.1em; }
+
+.stat { font-size: 2.4em; font-weight: 800; color: var(--fg-strong); letter-spacing: -0.03em; line-height: 1; }
+.stat .accent { color: var(--accent); }
+.stats { display: flex; gap: 1.1em; flex-wrap: wrap; margin-top: 0.4em; }
+.stats .stat { font-size: 1.55em; }
+.stats .label { font-size: 0.36em; color: var(--muted); display: block; margin-top: 0.5em; font-weight: 600; letter-spacing: 0.02em; }
+
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1em; align-items: start; }
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8em; align-items: start; }
+.card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.7em 0.8em;
+}
+.card h3 { font-size: 0.8em; margin-bottom: 0.3em; }
+.card p, .card ul { font-size: 0.6em; color: var(--fg); margin: 0; }
+.card.win { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-soft); }
+.card .tag { font-size: 0.42em; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); display: block; margin-bottom: 0.4em; font-weight: 700; }
+.card.win .tag { color: var(--accent); }
+
+.flow { display: flex; align-items: stretch; gap: 0.5em; margin-top: 0.5em; }
+.flow .node { flex: 1; background: var(--bg-2); border: 1px solid var(--border); border-radius: 14px; padding: 0.7em 0.7em; }
+.flow .node .n { color: var(--accent); font-weight: 800; font-size: 0.55em; letter-spacing: 0.04em; }
+.flow .node h3 { font-size: 0.7em; margin: 0.2em 0 0.3em; }
+.flow .node p { font-size: 0.5em; color: var(--muted); margin: 0; line-height: 1.35; }
+.flow .arrow { align-self: center; color: var(--accent); font-size: 1.1em; }
+
+.reveal pre {
+  width: 100%;
+  box-shadow: none;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.5em;
+  margin: 0.4em 0;
+}
+.reveal pre code { font-family: var(--mono); padding: 0.9em 1em; max-height: none; color: #d6deea; }
+.reveal code .kw { color: #7aa2ff; }
+.reveal code .str { color: #6ed59a; }
+.reveal code .num { color: #e8b860; }
+.reveal code .cm { color: #6b7686; }
+.reveal :not(pre) > code { font-family: var(--mono); background: var(--bg-2); border-radius: 5px; padding: 0.05em 0.3em; font-size: 0.85em; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 0.4em; margin-top: 0.3em; }
+.chip { background: var(--bg-2); border: 1px solid var(--border); border-radius: 999px; padding: 0.28em 0.7em; font-size: 0.46em; color: var(--fg); }
+
+/* Plain-language analogy callout (business deck). */
+.analogy {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 10px 10px 0;
+  padding: 0.5em 0.8em;
+  font-size: 0.7em;
+  color: var(--fg);
+  margin: 0.5em 0;
+}
+.analogy strong { color: var(--accent); }
+
+/* Where-it-matters use-case rows (business deck). */
+.usecases { display: flex; flex-direction: column; gap: 0.5em; margin-top: 0.3em; }
+.usecase { display: grid; grid-template-columns: 8.5em 1fr; gap: 0.8em; align-items: baseline; }
+.usecase .uc-name { color: var(--fg-strong); font-weight: 700; font-size: 0.7em; }
+.usecase .uc-name span { display: block; color: var(--accent); font-size: 0.62em; font-weight: 600; letter-spacing: 0.02em; }
+.usecase .uc-impact { color: var(--fg); font-size: 0.62em; line-height: 1.35; }
+
+/* To-scale proof bars (business deck): bar length ∝ measured time or cost,
+   linear scale, all tracks share one axis (track width = worst contender).
+   Winnow row (.lead) wears the emphasis green; context rows a de-emphasis
+   gray — identity always carried by the direct name labels, never hue alone. */
+.compare { display: flex; flex-direction: column; gap: 0.45em; margin-top: 0.45em; }
+.compare .cmp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1em; margin-bottom: 0.16em; }
+.compare .cmp-name { font-size: 0.6em; font-weight: 700; color: var(--muted); }
+.compare .cmp-name span { color: var(--muted); font-weight: 500; }
+.compare .cmp-val { font-size: 0.6em; font-weight: 800; color: var(--fg-strong); white-space: nowrap; }
+.compare .cmp-val .mult { color: var(--muted); font-weight: 600; }
+.compare .cmp-track { height: 0.4em; background: var(--bg-2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.compare .cmp-fill { height: 100%; background: #7d8794; border-radius: 0 4px 4px 0; min-width: 2px; }
+.compare .cmp-note { font-size: 0.5em; color: var(--muted); line-height: 1.3; margin: 0.16em 0 0; }
+.compare .cmp-lead .cmp-name { color: var(--fg-strong); }
+.compare .cmp-lead .cmp-fill { background: #27aa6e; }
+.compare .cmp-scale-note { font-size: 0.42em; color: var(--muted); margin: 0.1em 0 0; }
+
+/* Use-of-funds / market breakdown bars. */
+.bars { display: flex; flex-direction: column; gap: 0.5em; margin-top: 0.4em; }
+.bar { font-size: 0.62em; }
+.bar .bar-label { display: flex; justify-content: space-between; margin-bottom: 0.2em; }
+.bar .bar-label .accent { font-weight: 700; }
+.bar .bar-track { height: 0.55em; background: var(--bg-2); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+.bar .bar-fill { height: 100%; background: var(--accent); border-radius: 999px; }
+
+/* Back-to-docs corner link. */
+.back-link {
+  position: fixed; top: 14px; left: 16px; z-index: 40;
+  font-family: var(--sans); font-size: 14px; color: var(--muted);
+  background: rgba(13, 18, 25, 0.7); border: 1px solid var(--border);
+  padding: 5px 10px; border-radius: 7px; backdrop-filter: blur(4px);
+}
+.back-link:hover { color: var(--fg-strong); border-color: var(--accent); }
